@@ -9,7 +9,7 @@ const App = () => {
   const [noteID, setNoteID] = useState(null);
 
   const fetchNote = () => {
-    axios.get("http://localhost:3000/api/notes").then((res) => {
+    axios.get("https://backend-journey-cmgc.onrender.com/api/notes").then((res) => {
       setNote(res.data.note);
     });
   };
@@ -22,7 +22,7 @@ const App = () => {
 
     if (noteID) {
       axios
-        .patch("http://localhost:3000/api/notes/" + noteID, {
+        .patch("https://backend-journey-cmgc.onrender.com/api/notes/" + noteID, {
           description: description,
         })
         .then(() => {
@@ -32,7 +32,7 @@ const App = () => {
     } else {
       if (title.trim() !== "" && description.trim() !== "") {
         axios
-          .post("http://localhost:3000/api/notes", {
+          .post("https://backend-journey-cmgc.onrender.com/api/notes", {
             title: title,
             description: description,
           })
@@ -49,7 +49,7 @@ const App = () => {
   };
 
   const deleteNote = (noteId) => {
-    axios.delete("http://localhost:3000/api/notes/" + noteId).then(() => {
+    axios.delete("https://backend-journey-cmgc.onrender.com/api/notes/" + noteId).then(() => {
       fetchNote();
     });
   };
