@@ -5,4 +5,6 @@
 * Day 3 - Connect database 
 * Day 4 - database with get post Api
 * Day 5 - intrigation database/backend with React and deployment setup
+* Day 6 - Authentication 
+
 ...
