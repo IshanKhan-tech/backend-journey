@@ -7,7 +7,9 @@
 * Day 5 - intrigation database/backend with React and deployment setup
 * Day 6 - Authentication 
 * Day 7 - Authentication {register / login}
-* Day 8 - Insta clone {User register / login (with token and hash password)}
+* Day 8 - Insta clone(day1) {User register / login (with token and hash password)}
+* Day 9 - Insta clone(day2) post Creation start
+
 
 
 ...
