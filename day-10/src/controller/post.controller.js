@@ -72,15 +72,13 @@ const getPostDetailsController = async (req, res) => {
   }
   const userId = decode.id;
   const postId = req.params.id;
-  console.log("Post ID:", postId);
 
-const post = await postModel.findById(postId);
+  const post = await postModel.findById(postId);
 
-console.log("Post:", post);
   if (!post) {
     return res.status(404).json({ message: "Post does not found" });
   }
-  
+
   const isUserValid = post.user.toString() === userId;
   if (!isUserValid) {
     return res.status(403).json({ message: "Forbitten content" });
@@ -88,8 +86,38 @@ console.log("Post:", post);
   res.status(200).json({ message: "detail fetched", post });
 };
 
+const deletePostController = async (req, res) => {
+  const token = req.cookies.token;
+  if (!token) {
+    return res.status(401).json({ message: "Unautherized access" });
+  }
+  let decode;
+  try {
+    decode = jwt.verify(token, process.env.JWT_SECRET);
+  } catch (err) {
+    return res.status(401).json({ message: "Unautherized access" });
+  }
+  const userId = decode.id;
+
+  const postId = req.params.id;
+
+  const post = await postModel.findById(postId);
+  if (!post) {
+    return res.status(404).json({ message: "post not found" });
+  }
+
+  const isUserValid = post.user.toString() === userId;
+  if (!isUserValid) {
+    return res.status(403).json({ message: "Forbidden Content." });
+  }
+
+  await postModel.findByIdAndDelete(postId);
+  res.status(200).json({ message: "post deleted successfully" });
+};
+
 module.exports = {
   createPostController,
   getController,
   getPostDetailsController,
+  deletePostController,
 };

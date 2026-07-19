@@ -9,7 +9,7 @@
 * Day 7 - Authentication {register / login}
 * Day 8 - Insta clone(day1) {User register / login (with token and hash password)}
 * Day 9 - Insta clone(day2) post Creation start
-* Day 10 - Insta clone(day3) post Creat, post fetched, post detalis fetched
+* Day 10 - Insta clone(day3) post Creat, post fetched, post details fetched, post delete Api
 
 
 
