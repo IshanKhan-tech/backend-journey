@@ -11,7 +11,8 @@
 * Day 9 - Insta clone(day2) post Creation start
 * Day 10 - Insta clone(day3) post Creat, post fetched, post details fetched, post delete Api
 * Day 11 - Insta clone(day4) Middlewear 
-* Day 12 - Insta clone(day5)  post like/Unlike etc
+* Day 12 - Insta clone(day5)  post like/Unlike follow/Unfollow
+* Day 13 - Insta clone(day6)  follow status pending/accepted/rejected "start frontend"
 
 
 
