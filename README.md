@@ -14,6 +14,7 @@
 * Day 12 - Insta clone(day5)  post like/Unlike follow/Unfollow
 * Day 13 - Insta clone(day6)  follow status pending/accepted/rejected "start frontend"
 * Day 14 - Insta clone(day7)  hook layer/state layer/Api layer
+* Day 15 - Insta clone(day8)  fetch all post
 
 
 

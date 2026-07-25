@@ -1,0 +1,148 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+.main {
+  min-height: 100vh;
+  width: 100%;
+  background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+
+  .container {
+    width: 900px;
+    max-width: 100%;
+
+    background: white;
+    border-radius: 20px;
+    overflow: hidden;
+
+    display: flex;
+
+    box-shadow: 0 20px 60px rgba(0, 0, 0, .25);
+
+    .left {
+      flex: 1;
+      background: linear-gradient(135deg, #833ab4, #fd1d1d, #fcb045);
+      color: white;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+
+      padding: 50px;
+      text-align: center;
+
+      h1 {
+        font-size: 55px;
+        margin-bottom: 20px;
+      }
+
+      p {
+        font-size: 18px;
+        opacity: .9;
+      }
+    }
+
+    .right {
+      flex: 1;
+      padding: 50px 40px;
+
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+
+      h2 {
+        text-align: center;
+        margin-bottom: 25px;
+        font-size: 32px;
+      }
+    }
+  }
+
+  .formContainer,
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  input {
+    width: 100%;
+    padding: 14px 18px;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    outline: none;
+    font-size: 16px;
+    transition: .3s;
+
+    &:focus {
+      border-color: #e1306c;
+      box-shadow: 0 0 10px rgba(225, 48, 108, .2);
+    }
+  }
+
+  button {
+    width: 100%;
+    padding: 14px;
+    border: none;
+    border-radius: 10px;
+
+    background: linear-gradient(90deg, #833ab4, #fd1d1d, #fcb045);
+
+    color: white;
+    font-size: 17px;
+    font-weight: 600;
+
+    cursor: pointer;
+    transition: .3s;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 20px rgba(0, 0, 0, .2);
+    }
+  }
+
+  p {
+    margin-top: 20px;
+    text-align: center;
+    color: #666;
+  }
+
+  .toggleAuthForm {
+    margin-left: 6px;
+    color: #e1306c;
+    text-decoration: none;
+    font-weight: bold;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+@media (max-width: 768px) {
+  .main {
+    .container {
+      flex-direction: column;
+
+      .left {
+        padding: 40px 20px;
+
+        h1 {
+          font-size: 40px;
+        }
+      }
+
+      .right {
+        padding: 35px 25px;
+      }
+    }
+  }
+}

@@ -1,0 +1,141 @@
+/* ===========================
+   FEED
+=========================== */
+
+.feed {
+  width: 100%;
+  max-width: 500px;
+  margin: 25px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* ===========================
+   POST
+=========================== */
+
+.post {
+  width: 100%;
+  background: #fff;
+  border: 1px solid #dbdbdb;
+  border-radius: 10px;
+  overflow: hidden;
+
+  /* Header */
+
+  &__header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+
+    .user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+
+      img {
+        width: 40px;
+        height: 40px;
+        border-radius: 50%;
+        object-fit: cover;
+      }
+
+      span {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+
+    .dots {
+      font-size: 20px;
+      cursor: pointer;
+    }
+  }
+
+  /* Image */
+
+  &__image {
+    width: 100%;
+
+    img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+  }
+
+  /* Action Buttons */
+
+  &__actions {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 15px;
+    
+    overflow: hidden;
+
+    .left {
+      display: flex;
+      gap: 18px;
+      .liked{
+        color: red;
+      }
+    }
+
+    svg {
+      font-size: 22px;
+      cursor: pointer;
+      transition: 0.2s;
+      
+        overflow: hidden;
+        
+
+
+      &:hover {
+        opacity: 0.7;
+      }
+    }
+  }
+
+  /* Post Info */
+
+  &__info {
+    padding: 0 15px 15px;
+
+    .likes {
+      font-weight: 600;
+      font-size: 14px;
+      margin-bottom: 6px;
+    }
+
+    p {
+      font-size: 14px;
+      line-height: 1.5;
+      margin: 0;
+    }
+
+    strong {
+      margin-right: 5px;
+    }
+  }
+}
+
+/* ===========================
+   Responsive
+=========================== */
+
+@media (max-width: 600px) {
+  .feed {
+    max-width: 100%;
+    margin: 0;
+    gap: 15px;
+  }
+
+  .post {
+    border-radius: 0;
+    border-left: none;
+    border-right: none;
+  }
+}
