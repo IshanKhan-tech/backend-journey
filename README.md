@@ -16,8 +16,11 @@
 * Day 14 - Insta clone(day7)  hook layer/state layer/Api layer
 * Day 15 - Insta clone(day8)  fetch all post
 
+* Day 17 - Modify(New project start) 
+
 
 
 
 
 ...
+Modify = Where software detect your expression and play song for your mood
