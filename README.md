@@ -17,6 +17,7 @@
 * Day 15 - Insta clone(day8)  fetch all post
 
 * Day 17 - Modify(New project start) 
+* Day 18 - Modify(day 2) logout feacture (blacklisting) with MongoDB
 
 
 
