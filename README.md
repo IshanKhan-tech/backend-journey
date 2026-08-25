@@ -18,6 +18,7 @@
 
 * Day 17 - Modify(New project start) 
 * Day 18 - Modify(day 2) logout feacture (blacklisting) with MongoDB
+* Day 18 - Modify(day 2) Radis => logout feacture (blacklisting) with Radis
 
 
 
