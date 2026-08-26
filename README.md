@@ -19,6 +19,8 @@
 * Day 17 - Modify(New project start) 
 * Day 18 - Modify(day 2) logout feacture (blacklisting) with MongoDB
 * Day 18 - Modify(day 2) Radis => logout feacture (blacklisting) with Radis
+* Day 20 - Modify(day 3) Login and register page with Authentication (4 layer Archetecture)
+
 
 
 
