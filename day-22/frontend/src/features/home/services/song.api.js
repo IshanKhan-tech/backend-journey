@@ -5,6 +5,16 @@ const api = axios.create({
   withCredentials: true,
 });
 
+export const postSong = async ( {mood, file }) => {
+  const formData = new FormData()
+
+  formData.append("song", file)
+  formData.append("mood", mood)
+
+  const response = await api.post("/api/song", formData);
+  return response.data
+};
+
 export const getSong = async ({ mood }) => {
   const response = await api.get("/api/song/get?mood=" + mood);
   return response.data;

@@ -22,6 +22,7 @@
 * Day 20 - Modify(day 3) Login and register page with Authentication (4 layer Archetecture)
 * Day 21 - Modify(day 4) Song upload API with imageKit/nodejs, node-id3, Multer
 * Day 21 - Modify(day 5) Creating UI and NavBar etc
+* Day 22 - Modify(day 6) Project Completed and also add some more feature by me.
 
 
 

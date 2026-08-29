@@ -26,7 +26,10 @@ export default function FaceExpression({ onClick = () => {} }) {
           }
 
           if (streamRef.current) {
-            streamRef.current.getTracks().forEach((track) => track.stop());
+            streamRef.current
+              .getTracks()
+              .forEach((track) => track.stop());
+
             streamRef.current = null;
           }
 
@@ -34,7 +37,10 @@ export default function FaceExpression({ onClick = () => {} }) {
         }
       } catch (error) {
         if (!cancelled) {
-          console.error("Face detection initialization failed:", error);
+          console.error(
+            "Face detection initialization failed:",
+            error
+          );
         }
       }
     };
@@ -44,19 +50,19 @@ export default function FaceExpression({ onClick = () => {} }) {
     return () => {
       cancelled = true;
 
-      // Close MediaPipe
       if (landmarkerRef.current) {
         landmarkerRef.current.close();
         landmarkerRef.current = null;
       }
 
-      // Stop camera
       if (streamRef.current) {
-        streamRef.current.getTracks().forEach((track) => track.stop());
+        streamRef.current
+          .getTracks()
+          .forEach((track) => track.stop());
+
         streamRef.current = null;
       }
 
-      // Video source remove
       if (videoRef.current) {
         videoRef.current.pause();
         videoRef.current.srcObject = null;
@@ -75,14 +81,14 @@ export default function FaceExpression({ onClick = () => {} }) {
   };
 
   return (
-    <section className="w-full h-[50%] px-3 py-5 sm:px-5 sm:py-7 lg:px-8 lg:py-8">
+    <section className="w-full py-4 sm:py-6 lg:py-7">
       <div className="mx-auto w-full max-w-6xl">
 
         {/* Camera Card */}
         <div className="relative">
 
-          {/* Violet Glow */}
-          <div className="pointer-events-none absolute -inset-2 rounded-full bg-violet-500/5 blur-3xl sm:-inset-4" />
+          {/* Glow */}
+          <div className="pointer-events-none absolute -inset-2 rounded-3xl bg-violet-500/5 blur-3xl" />
 
           <div
             className="
@@ -91,11 +97,10 @@ export default function FaceExpression({ onClick = () => {} }) {
               rounded-2xl
               border border-zinc-800/80
               bg-[#111113]
-              p-3
+              p-2.5
               shadow-2xl
               sm:rounded-3xl
-              sm:p-5
-              lg:p-6
+              sm:p-4
             "
           >
 
@@ -103,13 +108,15 @@ export default function FaceExpression({ onClick = () => {} }) {
             <div
               className="
                 relative
-                aspect-[4/3]
+                h-[240px]
                 w-full
                 overflow-hidden
                 rounded-xl
                 bg-[#09090b]
-                sm:aspect-video
+                sm:h-[300px]
                 sm:rounded-2xl
+                md:h-[340px]
+                lg:h-[380px]
               "
             >
               <video
@@ -130,55 +137,54 @@ export default function FaceExpression({ onClick = () => {} }) {
                   rounded-full
                   border
                   border-zinc-700/60
-                  bg-black/40
+                  bg-black/45
                   px-2.5
                   py-1.5
                   backdrop-blur-md
                   sm:left-4
                   sm:top-4
-                  sm:gap-2
                   sm:px-3
                 "
               >
                 <span className="h-1.5 w-1.5 rounded-full bg-violet-400 shadow-lg shadow-violet-400/50 sm:h-2 sm:w-2" />
 
-                <span className="text-[11px] text-zinc-300 sm:text-xs">
+                <span className="text-[10px] text-zinc-300 sm:text-xs">
                   Camera active
                 </span>
               </div>
             </div>
 
-            {/* Bottom Section */}
+            {/* Bottom Content */}
             <div
               className="
-                mt-4
+                mt-3
                 flex
                 flex-col
-                gap-4
-                sm:mt-6
-                sm:gap-5
-                md:flex-row
-                md:items-center
-                md:justify-between
+                gap-3
+                sm:mt-4
+                sm:flex-row
+                sm:items-center
+                sm:justify-between
+                sm:gap-4
               "
             >
 
               {/* Expression */}
               <div className="min-w-0">
-                <p className="text-[11px] font-medium uppercase tracking-wider text-zinc-600 sm:text-xs">
+                <p className="text-[10px] font-medium uppercase tracking-wider text-zinc-600 sm:text-xs">
                   Detected mood
                 </p>
 
                 <h2
                   className="
-                    mt-1
+                    mt-0.5
                     truncate
-                    text-xl
+                    text-lg
                     font-semibold
                     capitalize
                     tracking-tight
                     text-white
-                    sm:text-2xl
+                    sm:text-xl
                   "
                 >
                   {expression}
@@ -189,13 +195,13 @@ export default function FaceExpression({ onClick = () => {} }) {
               <button
                 onClick={handleClick}
                 className="
-                  h-11
+                  h-10
                   w-full
                   shrink-0
                   rounded-xl
                   bg-violet-500
-                  px-6
-                  text-sm
+                  px-5
+                  text-xs
                   font-semibold
                   text-white
                   shadow-lg
@@ -204,9 +210,10 @@ export default function FaceExpression({ onClick = () => {} }) {
                   duration-200
                   hover:bg-violet-400
                   active:scale-[0.98]
-                  sm:h-12
-                  sm:px-7
-                  md:w-auto
+                  sm:h-11
+                  sm:w-auto
+                  sm:px-6
+                  sm:text-sm
                 "
               >
                 Detect my mood
@@ -214,7 +221,6 @@ export default function FaceExpression({ onClick = () => {} }) {
             </div>
           </div>
         </div>
-
       </div>
     </section>
   );
