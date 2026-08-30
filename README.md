@@ -23,6 +23,9 @@
 * Day 21 - Modify(day 4) Song upload API with imageKit/nodejs, node-id3, Multer
 * Day 21 - Modify(day 5) Creating UI and NavBar etc
 * Day 22 - Modify(day 6) Project Completed and also add some more feature by me.
+*  * Perplexity {
+        * Day 22 - Start new project => setup express, mongoose         and authentication and validate.
+    }
 
 
 
