@@ -1,16 +1,8 @@
 import { Router } from "express";
-import { register, verifyEmail, login, getMe } from "../controllers/auth.controller.js";
-import { registerValidator, loginValidator } from "../validators/auth.validator.js";
-import { authUser } from "../middleware/auth.middleware.js";
+import { register } from "../controllers/auth.controller.js";
+import { registerValidator } from "../validators/auth.validator.js";
+const router = Router();
 
-const authRouter = Router();
+router.post("/register", registerValidator, register);
 
-/**
- * @route POST /api/auth/register
- * @desc Register a new user
- * @access Public
- * @body { username, email, password }
- */
-authRouter.post("/register", registerValidator, register);
-
-export default authRouter;
+export default router;

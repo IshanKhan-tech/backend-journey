@@ -25,6 +25,7 @@
 * Day 22 - Modify(day 6) Project Completed and also add some more feature by me.
 *  * Perplexity {
         * Day 22 - Start new project => setup express, mongoose         and authentication and validate.
+        * day 23 - Initialize with UI and Register.jsx where User verify there Email {React}
     }
 
 
