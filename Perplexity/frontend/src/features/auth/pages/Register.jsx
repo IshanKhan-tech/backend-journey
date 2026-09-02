@@ -5,30 +5,66 @@ import {
   createUserWithEmailAndPassword,
   sendEmailVerification,
 } from "firebase/auth";
+
 import { auth } from "../../../config/firebase";
+import { useNavigate } from "react-router-dom";
 
 const Register = () => {
+  const navigate = useNavigate();
+
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const submitHandler = async (e) => {
     e.preventDefault();
+
     if (!username || !email || !password) {
       alert("Please fill all the fields");
       return;
     }
 
     try {
+      // 1. Create user in Firebase
       const userCredential = await createUserWithEmailAndPassword(
         auth,
         email,
         password,
       );
 
+      // 2. Send verification email
       await sendEmailVerification(userCredential.user);
 
+      // 3. Get Firebase ID token
+      const idToken = await userCredential.user.getIdToken();
+
+      // 4. Create user in MongoDB
+      const response = await fetch(
+        "http://localhost:3000/api/auth/register",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            username,
+            email,
+            password,
+            idToken,
+          }),
+        },
+      );
+
+      const data = await response.json();
+
+      if (!response.ok) {
+        throw new Error(data.message);
+      }
+
+      console.log(data);
+
       alert("Verification email sent! Please verify your email.");
+      navigate("/verify-email");
     } catch (error) {
       console.log(error);
       alert(error.message);

@@ -1,10 +1,11 @@
 import React from 'react'
-import Register from './features/auth/pages/Register'
+import { router } from './app.routes'
+import { RouterProvider } from 'react-router-dom'
 
 const App = () => {
   return (
     <div>
-      <Register/>
+      <RouterProvider router={router} />
     </div>
   )
 }

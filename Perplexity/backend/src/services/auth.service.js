@@ -1,13 +1,8 @@
 import { getAuth } from "firebase-admin/auth";
 import "../config/firebase-admin.js";
 
-export async function createFirebaseUser({ email, password }) {
-    const auth = getAuth();
+export async function verifyFirebaseToken(idToken) {
+    const decodedToken = await getAuth().verifyIdToken(idToken);
 
-    const userRecord = await auth.createUser({
-        email,
-        password,
-    });
-
-    return userRecord;
+    return decodedToken;
 }
