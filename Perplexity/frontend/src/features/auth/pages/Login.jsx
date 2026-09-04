@@ -1,12 +1,13 @@
 import React, { useState } from "react";
 import AuthInput from "../components/authInput";
 
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { useAuth } from "../hooks/useAuth";
+import { Link, useNavigate } from "react-router-dom";
 
-import { auth } from "../../../config/firebase";
-import { useNavigate } from "react-router-dom";
+
 
 const Login = () => {
+  const { handleLogin } = useAuth();
   const navigate = useNavigate();
 
   const [email, setEmail] = useState("");
@@ -20,54 +21,13 @@ const Login = () => {
       return;
     }
 
-    try {
-      // 1. Login user with Firebase
-      const userCredential = await signInWithEmailAndPassword(
-        auth,
-        email,
-        password,
-      );
-
-      // 2. Check email verification
-      if (!userCredential.user.emailVerified) {
-        alert("Please verify your email first.");
-        navigate("/verify-email");
-        return;
-      }
-
-      // 3. Get Firebase ID token
-      const idToken = await userCredential.user.getIdToken(true);
-
-      // 4. Send ID token to backend
-      const response = await fetch(
-        "http://localhost:3000/api/auth/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          credentials: "include",
-          body: JSON.stringify({
-            idToken,
-          }),
-        },
-      );
-
-      const data = await response.json();
-
-      if (!response.ok) {
-        throw new Error(data.message);
-      }
-
-      console.log(data);
-
-      // 5. Login successful
+    const result = await handleLogin(email, password);
+    if (result) {
       navigate("/");
-    } catch (error) {
-      console.log(error);
-      alert(error.message);
     }
   };
+
+  
 
   return (
     <div className="min-h-screen bg-[#f8f6f1] flex items-center justify-center px-4">
@@ -124,10 +84,10 @@ const Login = () => {
         <p className="text-center text-sm text-gray-500 mt-6">
           Don't have an account?{" "}
           <span
-            onClick={() => navigate("/register")}
             className="text-orange-500 font-medium cursor-pointer hover:text-orange-600"
           >
-            Create account
+            <Link to="/register">Create account</Link>
+            
           </span>
         </p>
 

@@ -27,6 +27,7 @@
         * Day 22 - Start new project => setup express, mongoose         and authentication and validate.
         * day 23 - Initialize with UI and Register.jsx where User verify there Email {React}
         * day 24 - Login.jsx , Register.jsx with email verification
+        * day 25 - use Redux, setup socket.io server and cliet site and 4 layer architecture Authentication.
     }
 
 

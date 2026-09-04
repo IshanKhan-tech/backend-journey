@@ -77,16 +77,21 @@ export const verifyEmail = async (req, res) => {
     const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
       expiresIn: "24h",
     });
-    res.cookie("token", token,{
-        httpOnly: true,
-        secure: false, // Set to true if using HTTPS
-        sameSite: "strict",
-        maxAge: 24 * 60 * 60 * 1000, // 1 day
+    res.cookie("token", token, {
+      httpOnly: true,
+      secure: false, // Set to true if using HTTPS
+      sameSite: "strict",
+      maxAge: 24 * 60 * 60 * 1000, // 1 day
     });
 
     return res.status(200).json({
       message: "Email verified successfully",
       success: true,
+      user: {
+        id: user._id,
+        username: user.username,
+        email: user.email,
+      },
     });
   } catch (error) {
     console.log(error);
@@ -130,13 +135,9 @@ export const login = async (req, res) => {
       });
     }
 
-    const token = jwt.sign(
-      { id: user._id },
-      process.env.JWT_SECRET,
-      {
-        expiresIn: "24h",
-      }
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWT_SECRET, {
+      expiresIn: "24h",
+    });
 
     res.cookie("token", token, {
       httpOnly: true,
@@ -154,12 +155,40 @@ export const login = async (req, res) => {
         email: user.email,
       },
     });
-
   } catch (error) {
     console.log(error);
 
     return res.status(500).json({
       message: "Login failed",
+      success: false,
+      err: error.message,
+    });
+  }
+};
+
+export const getMe = async (req, res) => {
+  const userId = req.userId;
+
+  try {
+    const user = await userModel.findById(userId).select("-password");
+
+    if (!user) {
+      return res.status(404).json({
+        message: "User not found",
+        success: false,
+      });
+    }
+
+    return res.status(200).json({
+      message: "User details fetched successfully",
+      success: true,
+      user,
+    });
+  } catch (error) {
+    console.log(error);
+
+    return res.status(500).json({
+      message: "Failed to fetch user details",
       success: false,
       err: error.message,
     });

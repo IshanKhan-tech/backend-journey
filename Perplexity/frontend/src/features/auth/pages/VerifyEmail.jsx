@@ -1,46 +1,36 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { reload } from "firebase/auth";
-import { auth } from "../../../config/firebase";
+import { useAuth } from "../hooks/useAuth";
 
 const VerifyEmail = () => {
+  const { handleVerifyEmail } = useAuth();
   const navigate = useNavigate();
 
   const [checking, setChecking] = useState(false);
 
   const checkVerification = async () => {
-    if (!auth.currentUser) {
-      navigate("/register");
-      return;
-    }
+    setChecking(true);
 
-    try {
-      setChecking(true);
+    const result = await handleVerifyEmail();
 
-      await reload(auth.currentUser);
+    setChecking(false);
 
-      if (auth.currentUser.emailVerified) {
-        navigate("/");
-      }
-    } catch (error) {
-      console.log(error);
-    } finally {
-      setChecking(false);
+    if (result) {
+      navigate("/");
     }
   };
 
   useEffect(() => {
-    const interval = setInterval(() => {
-      checkVerification();
-    }, 3000);
+  checkVerification();
 
-    return () => clearInterval(interval);
-  }, []);
+  const interval = setInterval(checkVerification, 3000);
+
+  return () => clearInterval(interval);
+}, []);
 
   return (
     <div className="min-h-screen bg-[#f8f6f1] flex items-center justify-center px-4">
       <div className="w-full max-w-md text-center">
-
         <div className="mb-8">
           <h1 className="text-3xl font-semibold tracking-tight text-[#1f1f1f]">
             Perplexity
@@ -52,7 +42,6 @@ const VerifyEmail = () => {
         </div>
 
         <div className="bg-white border border-[#e9e5dd] rounded-2xl p-8 shadow-[0_10px_40px_rgba(0,0,0,0.05)]">
-
           <div className="mx-auto mb-6 flex h-14 w-14 items-center justify-center rounded-full bg-orange-50">
             <span className="text-2xl">✉</span>
           </div>
@@ -62,8 +51,8 @@ const VerifyEmail = () => {
           </h2>
 
           <p className="mt-3 text-sm leading-6 text-gray-500">
-            We sent a verification link to your email address.
-            Please verify your email and keep this page open.
+            We sent a verification link to your email address. Please verify
+            your email and keep this page open.
           </p>
 
           <div className="mt-6 flex items-center justify-center gap-2 text-sm text-orange-500">
@@ -78,13 +67,11 @@ const VerifyEmail = () => {
           >
             {checking ? "Checking..." : "I've verified my email"}
           </button>
-
         </div>
 
         <p className="mt-6 text-xs text-gray-400">
           You can verify your email from another device too.
         </p>
-
       </div>
     </div>
   );

@@ -3,11 +3,12 @@ import Home from "./features/home/pages/Home";
 import Register from "./features/auth/pages/Register";
 import VerifyEmail from "./features/auth/pages/VerifyEmail";
 import Login from "./features/auth/pages/Login";
+import Protected from "./features/auth/components/Protected";
 
 export const router = createBrowserRouter([
   {
     path: "/",
-    element: <Home />,
+    element:<Protected><Home /></Protected>,
   },
   {
     path: "/register",
