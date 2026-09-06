@@ -1,14 +1,48 @@
-import {ChatGoogleGenerativeAI} from "@langchain/google-genai"
+import { ChatGoogleGenerativeAI } from "@langchain/google-genai";
+import { HumanMessage, SystemMessage, AIMessage } from "langchain";
+import axios from "axios";
 
-const model = new ChatGoogleGenerativeAI({
+const gemeniModel = new ChatGoogleGenerativeAI({
   apiKey: process.env.GOOGLE_API_KEY,
   model: "gemini-3.5-flash-lite",
-//   temperature: 0.7,
-//   maxOutputTokens: 1024,
-})
+});
 
-export async function testAi(){
-    model.invoke("what is the capital of france").then((response) => {
-        console.log(response)
-    })
-}
+export const generateResponse = async (messages) => {
+  const response = await gemeniModel.invoke(messages.map(msg=>{
+    if(msg.role=="user"){
+      return HumanMessage(msg.content)
+    }else if(msg.role=="ai"){
+      return AIMessage(msg.content)
+    }
+  }));
+
+  return response.text;
+};
+
+export const generateChatTitle = async (message) => {
+  const response = await axios.post(
+    "https://openrouter.ai/api/v1/chat/completions",
+    {
+      model: "openrouter/free",
+      messages: [
+        {
+          role: "system",
+          content:
+            "Generate a concise chat title in 2-4 words. Return only the title, no quotes or explanation.",
+        },
+        {
+          role: "user",
+          content: message,
+        },
+      ],
+    },
+    {
+      headers: {
+        Authorization: `Bearer ${process.env.OPENROUTER_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+    },
+  );
+
+  return response.data.choices[0].message.content.trim();
+};
