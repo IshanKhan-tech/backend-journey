@@ -21,8 +21,8 @@ export const sendMessage = async (req, res) => {
     content: message,
     role: "user",
   });
-
-  const messages = await messageModel.find({ chat: chatId });
+  
+  const messages = await messageModel.find({ chat: chat?._id });
 
   const result = await generateResponse(messages);
 

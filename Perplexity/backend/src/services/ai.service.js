@@ -10,9 +10,9 @@ const gemeniModel = new ChatGoogleGenerativeAI({
 export const generateResponse = async (messages) => {
   const response = await gemeniModel.invoke(messages.map(msg=>{
     if(msg.role=="user"){
-      return HumanMessage(msg.content)
+      return new HumanMessage(msg.content)
     }else if(msg.role=="ai"){
-      return AIMessage(msg.content)
+      return new AIMessage(msg.content)
     }
   }));
 
