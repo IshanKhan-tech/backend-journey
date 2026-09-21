@@ -1,30 +1,50 @@
 import React, { useEffect, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useChat } from "../hooks/useChat";
+import { setCurrentChatId } from "../chatSlice";
+import ReactMarkdown from "react-markdown";
+import remarkGfm from "remark-gfm";
 
 const Home = () => {
-  const { initializeSocketConnection } = useChat();
+  const {
+    initializeSocketConnection,
+    handleSendMessage,
+    handleGetChats,
+    handleOpenChat,
+  } = useChat();
+
+  const dispatch = useDispatch();
+
   const { user } = useSelector((state) => state.auth);
+
+  const { chats, currentChatId } = useSelector((state) => state.chat);
+
+  const messages = currentChatId ? chats[currentChatId]?.messages || [] : [];
 
   const [message, setMessage] = useState("");
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   useEffect(() => {
-    initializeSocketConnection;
+    initializeSocketConnection();
+    handleGetChats();
   }, []);
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+    setMessage("");
 
     if (!message.trim()) return;
 
-    console.log(message);
+    await handleSendMessage({
+      message,
+      chatId: currentChatId,
+    });
+
     setMessage("");
   };
 
   return (
     <div className="h-screen w-full bg-[#f7f5f0] text-[#171717] flex overflow-hidden">
-
       {/* MOBILE OVERLAY */}
       {isSidebarOpen && (
         <div
@@ -66,6 +86,10 @@ const Home = () => {
         {/* NEW CHAT */}
         <div className="p-4 shrink-0">
           <button
+            onClick={() => {
+              dispatch(setCurrentChatId(null));
+              setIsSidebarOpen(false);
+            }}
             type="button"
             className="w-full flex items-center gap-3 px-4 py-3 rounded-xl bg-[#f15a24] text-white text-sm font-medium hover:bg-[#df4d1b] transition"
           >
@@ -80,35 +104,7 @@ const Home = () => {
             Recent
           </p>
 
-          <div className="space-y-1">
-            <button
-              type="button"
-              className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-[#44413d] hover:bg-[#e5e1d9] transition truncate"
-            >
-              Explain React hooks
-            </button>
-
-            <button
-              type="button"
-              className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-[#44413d] hover:bg-[#e5e1d9] transition truncate"
-            >
-              How does JWT work?
-            </button>
-
-            <button
-              type="button"
-              className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-[#44413d] hover:bg-[#e5e1d9] transition truncate"
-            >
-              MongoDB authentication
-            </button>
-
-            <button
-              type="button"
-              className="w-full text-left px-3 py-2.5 rounded-lg text-sm text-[#44413d] hover:bg-[#e5e1d9] transition truncate"
-            >
-              JavaScript closures
-            </button>
-          </div>
+          
         </div>
 
         {/* USER */}
@@ -133,10 +129,8 @@ const Home = () => {
 
       {/* MAIN */}
       <main className="flex-1 min-w-0 h-full flex flex-col">
-
         {/* TOP BAR */}
         <header className="h-[72px] shrink-0 border-b border-[#e7e2d9] flex items-center px-6">
-
           {/* MOBILE MENU */}
           <button
             type="button"
@@ -166,43 +160,48 @@ const Home = () => {
 
           {/* DESKTOP TITLE */}
           <h2 className="hidden md:block text-sm font-medium text-[#55514b]">
-            New Chat
+            {currentChatId ? chats[currentChatId]?.title : "New Chat"}
           </h2>
         </header>
 
         {/* CHAT CONTENT */}
         <div className="flex-1 overflow-y-auto min-h-0">
           <div className="max-w-[820px] mx-auto px-6 py-12">
+            {/* CHAT MESSAGES */}––
+            <div className="space-y-10">
+              {messages.map((msg, index) => {
+                if (msg.role === "user") {
+                  return (
+                    <div key={index} className="flex justify-end">
+                      <div className="max-w-[75%] rounded-2xl bg-[#f15a24] text-white px-5 py-3.5 text-[15px] leading-6">
+                        {msg.content}
+                      </div>
+                    </div>
+                  );
+                }
 
-            <div className="min-h-[55vh] flex flex-col items-center justify-center text-center">
+                if (msg.role === "ai") {
+                  return (
+                    <div key={index} className="flex justify-start">
+                      <div className="max-w-[85%] text-[#292725] text-[15px] leading-7">
+                        <ReactMarkdown remarkPlugins={[remarkGfm]}>
+                          {msg.content}
+                        </ReactMarkdown>
+                      </div>
+                    </div>
+                  );
+                }
 
-              <div className="w-12 h-12 rounded-2xl bg-[#f15a24] text-white flex items-center justify-center mb-6">
-                <span className="text-xl font-semibold">
-                  P
-                </span>
-              </div>
-
-              <h1 className="text-3xl font-semibold tracking-[-0.04em]">
-                What can I help you with?
-              </h1>
-
-              <p className="mt-3 text-sm text-[#858078]">
-                Ask anything and start a new conversation.
-              </p>
-
+                return null;
+              })}
             </div>
-
           </div>
         </div>
 
         {/* INPUT */}
         <div className="shrink-0 px-6 pb-6">
-          <form
-            onSubmit={handleSubmit}
-            className="max-w-[820px] mx-auto"
-          >
+          <form onSubmit={handleSubmit} className="max-w-[820px] mx-auto">
             <div className="relative border border-[#dcd7ce] bg-white rounded-2xl shadow-[0_4px_20px_rgba(0,0,0,0.04)] focus-within:border-[#f15a24] transition">
-
               <textarea
                 value={message}
                 onChange={(e) => setMessage(e.target.value)}
@@ -221,7 +220,6 @@ const Home = () => {
                   ↑
                 </button>
               </div>
-
             </div>
 
             <p className="text-center text-[11px] text-[#aaa59c] mt-3">
@@ -229,7 +227,6 @@ const Home = () => {
             </p>
           </form>
         </div>
-
       </main>
     </div>
   );
