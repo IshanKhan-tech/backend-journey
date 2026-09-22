@@ -5,21 +5,17 @@ let io;
 export const initSocket = (httpServer) => {
     io = new Server(httpServer, {
         cors: {
-            origin: "http://localhost:5173",
+            origin: process.env.FRONTEND_URL,
             credentials: true
         }
     });
 
     console.log("Socket.io initialized");
 
-    // io.on("connection_error", (err) => {
-    //     console.error("Socket connection error:", err);
-    // });
-
     io.on("connection", (socket) => {
         console.log("A user connected:", socket.id);
     });
-}; 
+};
 
 export const getIO = () => {
     if (!io) {
