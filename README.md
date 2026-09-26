@@ -31,8 +31,10 @@
         * day 26 - create API for communicate AI to server and also save chats, messages in DB
         * day 27 - Create Home.jsx/dashboard and chat.api.js, chatSlice, useChat.js
         * day 28 - Connect with home.jsx and useChat
-
     }
+*  * Ai-Battle-Arena-Langgraph{
+    * day 28 - Setup Node.js, langchain 3 Models and langgraph basic setup
+}  
 
 
 
