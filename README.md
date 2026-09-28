@@ -23,6 +23,7 @@
 * Day 21 - Modify(day 4) Song upload API with imageKit/nodejs, node-id3, Multer
 * Day 21 - Modify(day 5) Creating UI and NavBar etc
 * Day 22 - Modify(day 6) Project Completed and also add some more feature by me.
+
 *  * Perplexity {
         * Day 22 - Start new project => setup express, mongoose         and authentication and validate.
         * day 23 - Initialize with UI and Register.jsx where User verify there Email {React}
@@ -32,13 +33,16 @@
         * day 27 - Create Home.jsx/dashboard and chat.api.js, chatSlice, useChat.js
         * day 28 - Connect with home.jsx and useChat
     }
-*  * Ai-Battle-Arena-Langgraph{
+
+*  * Ai-Battle-Arena-Langgraph {
     * day 28 - Setup Node.js, langchain 3 Models and langgraph basic setup
-}  
+    * day 29 - Setup UI and connect with backend API
+    }  
 
 
 
 
 
 ...
-Modify = Where software detect your expression and play song for your mood
+Modify = Where software detect your expression and play song for your mood.
+Ai-Battle-Arena-Langgraph = Where user send one problem and AI send 2 result and also give recommended / result score.
