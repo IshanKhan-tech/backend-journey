@@ -11,7 +11,7 @@ export const register = async (email, contact, fullname , password , isSeller)=>
 }
 
 export const login = async (email, password)=>{
-    const res = await api.post("api/auth/login",{
+    const res = await api.post("/api/auth/login",{
         email,password
     })
     return res.data

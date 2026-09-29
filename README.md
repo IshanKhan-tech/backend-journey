@@ -40,7 +40,7 @@
     } 
 
 *  * Snitch | E - commerce - website{
-    * day 30 - Complete Register/Login logic (backend)
+    * day 30 - Complete Register/Login logic and UI
     }
 
 
