@@ -37,7 +37,11 @@
 *  * Ai-Battle-Arena-Langgraph {
     * day 28 - Setup Node.js, langchain 3 Models and langgraph basic setup
     * day 29 - Setup UI and connect with backend API
-    }  
+    } 
+
+*  * Snitch | E - commerce - website{
+    * day 30 - Complete Register/Login logic (backend)
+    }
 
 
 
