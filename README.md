@@ -41,6 +41,7 @@
 
 *  * Snitch | E - commerce - website{
     * day 30 - Complete Register/Login logic and UI
+    * day 31 - Complete create product with images / setup imagekit and multer
     }
 
 

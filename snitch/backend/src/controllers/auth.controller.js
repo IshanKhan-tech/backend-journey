@@ -67,3 +67,19 @@ export const login = async (req, res) => {
 
   await sendTokenResponse(user, res, "User login successfully")
 };
+
+export const getMe = async (req,res)=>{
+  const user = req.user
+
+  res.status(200).json({
+    message:"User fetched successfully",
+    success:true,
+    user:{
+            id: user._id,
+            email: user.email,
+            contact: user.contact,
+            fullname: user.fullname,
+            role: user.role
+        }
+  })
+}
